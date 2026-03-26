@@ -9,9 +9,6 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-sA+e2Q1Ff1JC1lCUnHgJxNqJ1X57WT+a2F5f5DYG0/k=" crossorigin=""/>
 
-  <!-- Your custom CSS -->
-  <link rel="stylesheet" href="css/style.css">
-  
   <style>
     body { margin: 0; padding: 0; }
     #map { width: 100%; height: 100vh; }
@@ -25,19 +22,15 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-o9N1j8oLJbM1q6jMtnL0D9DJH1i2fQmZrb+/f1hx0V8=" crossorigin=""></script>
 
-<!-- Layer data files exported from QGIS2Web -->
-<script src="layers/json_SmethwickTownGreenspace_1.js"></script>
-<script src="layers/json_OtherLayer_2.js"></script> <!-- add other layers if needed -->
-
-<!-- Main layers script -->
-<script src="layers.js"></script>
+<!-- Main layers script (optional, keep if you have layers.js) -->
+<!-- <script src="layers.js"></script> -->
 
 <!-- Optional: your custom JS -->
 <script src="js/main.js"></script>
 
 <script>
   // Initialize Leaflet map
-  var map = L.map('map').setView([52.502, -1.994], 14); // adjust center/zoom
+  var map = L.map('map').setView([52.502, -1.994], 14);
 
   // Add a base map (OpenStreetMap)
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -45,19 +38,7 @@
     attribution: '© OpenStreetMap'
   }).addTo(map);
 
-  // Add your layers from layers.js (these variables are defined in the JSON files above)
-  if (typeof SmethwickTownGreenspace_1 !== "undefined") {
-    L.geoJSON(SmethwickTownGreenspace_1, {
-      style: {color: "#00FF00", weight: 2},
-      onEachFeature: function(feature, layer) {
-        if (feature.properties && feature.properties.name) {
-          layer.bindPopup(feature.properties.name);
-        }
-      }
-    }).addTo(map);
-  }
-
-  // Repeat for other layers as needed
+  // No additional layers for now
 </script>
 
 </body>
