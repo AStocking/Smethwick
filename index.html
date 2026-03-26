@@ -22,8 +22,20 @@
 <script src="resources/ol.js"></script>
 <script src="resources/ol-layerswitcher.js"></script>
 
+<!-- Layer data files (load these first!) -->
+<script src="layers/SmethwickCanals_0.js"></script>
+<!-- <script src="layers/json_SmethwickTownGreenspace_1.js"></script> --> <!-- Missing, safely skipped -->
+<script src="layers/CemeterySmethwick_2.js"></script>
+<script src="layers/SmethwickTownBuildings_3.js"></script>
+<script src="layers/SmethwickTownCrimeJan25Jan26_4.js"></script>
+<script src="layers/SmethwickTownFlyTipping_5.js"></script>
+<script src="layers/SmethwickRoads_6.js"></script>
+<script src="layers/CommunityFacilityWorks_7.js"></script>
+<script src="layers/CemeteryPlannedWorks_8.js"></script>
+<script src="layers/SmethwickTown_9.js"></script>
+
 <script>
-  // Create map
+  // Initialize map
   var map = new ol.Map({
     target: 'map',
     layers: [
@@ -37,43 +49,31 @@
     })
   });
 
-  // Add your available layers safely
-
-  // Example: SmethwickCanals_0
-  if (typeof SmethwickCanals_0 !== "undefined") {
-    var canalsLayer = new ol.layer.Vector({
-      source: new ol.source.Vector({
-        features: new ol.format.GeoJSON().readFeatures(SmethwickCanals_0)
-      })
-    });
-    map.addLayer(canalsLayer);
+  // Function to safely add a layer if it exists
+  function addLayerIfExists(layerVar, styleFunc) {
+    if (typeof layerVar !== "undefined") {
+      var vectorLayer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          features: new ol.format.GeoJSON().readFeatures(layerVar)
+        }),
+        style: styleFunc || undefined
+      });
+      map.addLayer(vectorLayer);
+    }
   }
 
-  // Example: CemeterySmethwick_2
-  if (typeof CemeterySmethwick_2 !== "undefined") {
-    var cemeteryLayer = new ol.layer.Vector({
-      source: new ol.source.Vector({
-        features: new ol.format.GeoJSON().readFeatures(CemeterySmethwick_2)
-      })
-    });
-    map.addLayer(cemeteryLayer);
-  }
-
-  // Repeat the above pattern for all layers you actually have
-  // Do NOT include SmethwickTownGreenspace_1 if it is missing
+  // Add all available layers
+  addLayerIfExists(SmethwickCanals_0);
+  addLayerIfExists(CemeterySmethwick_2);
+  addLayerIfExists(SmethwickTownBuildings_3);
+  addLayerIfExists(SmethwickTownCrimeJan25Jan26_4);
+  addLayerIfExists(SmethwickTownFlyTipping_5);
+  addLayerIfExists(SmethwickRoads_6);
+  addLayerIfExists(CommunityFacilityWorks_7);
+  addLayerIfExists(CemeteryPlannedWorks_8);
+  addLayerIfExists(SmethwickTown_9);
+  // SmethwickTownGreenspace_1 is missing, safely skipped
 </script>
-
-<!-- Layer data -->
-<script src="layers/SmethwickCanals_0.js"></script>
-<!-- <script src="layers/json_SmethwickTownGreenspace_1.js"></script> --> <!-- Missing, safely skipped -->
-<script src="layers/CemeterySmethwick_2.js"></script>
-<script src="layers/SmethwickTownBuildings_3.js"></script>
-<script src="layers/SmethwickTownCrimeJan25Jan26_4.js"></script>
-<script src="layers/SmethwickTownFlyTipping_5.js"></script>
-<script src="layers/SmethwickRoads_6.js"></script>
-<script src="layers/CommunityFacilityWorks_7.js"></script>
-<script src="layers/CemeteryPlannedWorks_8.js"></script>
-<script src="layers/SmethwickTown_9.js"></script>
 
 </body>
 </html>
